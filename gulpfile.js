@@ -8,8 +8,6 @@ const flexBugsFixes = require( 'postcss-flexbugs-fixes' );
 const clean = require('./tasks/clean');
 const { reload, serve } = require('./tasks/server');
 var packageImporter = require('node-sass-package-importer');
-var ejs = require("gulp-ejs");
-var rename = require('gulp-rename');
 
 
 const autoprefixerOptions = {
@@ -21,15 +19,6 @@ const postcssOptions = [
 	flexBugsFixes, autoprefixer( autoprefixerOptions )
 ];
 
-gulp.task( "ejs", function () {
-    return gulp.src(["./src/**/*.ejs", '!' + "./src/**/_*.ejs"])
-      .pipe(ejs())
-    .pipe(rename({ extname: '.html' }))
-    .pipe( gulp.dest( "./dist" ) );
-    done();
-  });
-
-
   gulp.task("js",function(done){
     gulp.src(["./src/js/*.js"])
     .pipe(plumber())
@@ -39,13 +28,13 @@ gulp.task( "ejs", function () {
 
 gulp.task('browser-sync', function(done) {
     browserSync({
-        server: {
-            baseDir: "./dist/",
-            index: "index.html",
-        }
+	    proxy : "webya.local",  // 変更
+	    notify: false,
+	    open: "external",
     });
     done();
 });
+
 
 gulp.task('imagemin', function(done) {
 	gulp.src('./src/images/**/*.*')
@@ -61,10 +50,10 @@ gulp.task('bs-reload', function (done) {
 });
 
 function watch(){
-    gulp.watch("./src/images/**/*.*", gulp.series('ejs','imagemin','js',reload));
-    gulp.watch("./src/images/**/**/*.*", gulp.series('ejs','imagemin','js',reload));
-    gulp.watch("./src/js/*", gulp.series('ejs','imagemin','js',reload));
-    gulp.watch("./src/**/*.ejs", gulp.series('ejs','imagemin','js',reload));
+    gulp.watch("./src/images/**/*.*", gulp.series('imagemin','js',reload));
+    gulp.watch("./src/images/**/**/*.*", gulp.series('imagemin','js',reload));
+    gulp.watch("./src/js/*", gulp.series('imagemin','js',reload));
+    gulp.watch("./src/**/*.ejs", gulp.series('imagemin','js',reload));
 }
 
-gulp.task('default', gulp.series(clean,gulp.parallel('ejs','imagemin','js'),serve,watch));
+gulp.task('default', gulp.series(clean,gulp.parallel('imagemin','js'),serve,watch));

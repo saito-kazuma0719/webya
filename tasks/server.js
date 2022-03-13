@@ -13,14 +13,15 @@ function reload (done) {
 /**
  * 開発用サーバ起動
  */
-function serve (done) {
+ function serve (done) {
   server.init({
-    server: {
-      baseDir: './dist',
-    }
+    proxy : "webya.local",  // 変更
+    notify: false,
+    open: "external",
   })
   done()
 }
+
 
 module.exports = {
   reload,
