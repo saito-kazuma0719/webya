@@ -19,6 +19,7 @@
     "tailwindcss": "^2.2.6"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.3.1",
     "browser-sync": "^2.27.7",
     "del": "^6.0.0",
     "gulp": "^4.0.2",

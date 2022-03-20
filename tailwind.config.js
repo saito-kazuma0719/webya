@@ -10,7 +10,9 @@ module.exports = {
       'vermillion': '#ff1515',
       'black-two': '#222222',
       'brownish-grey': '#646464',
+      'grey': '#e6e6e6',
       'white': '#ffffff',
+      
     },
     fontSize: {
       'xsl': '0.625rem',
@@ -67,5 +69,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }

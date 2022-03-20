@@ -7,4 +7,9 @@
         @apply font-noto;
         @apply text-base;
     }
+    .section_title{
+	    @apply text-base;
+	    @apply bg-black;
+	    @apply text-white;
+    }
 }
